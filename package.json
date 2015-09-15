@@ -9,11 +9,15 @@
     "prepublish": "rm -rf lib && babel src --out-dir lib",
     "postpublish": "rm -rf lib"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@weo-edu/is": "^0.2.0",
+    "@weo-edu/pit": "^0.1.1"
+  },
   "devDependencies": {
     "babel": "^5.8.21",
     "babel-tape-runner": "^1.2.0",
     "standard": "^5.1.0",
-    "tape": "^4.2.0"
+    "tape": "^4.2.0",
+    "test-console": "^1.0.0"
   }
 }

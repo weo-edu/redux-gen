@@ -2,26 +2,32 @@
  * Imports
  */
 
+import assert from 'assert'
 import pit from '@weo-edu/pit'
+import is from '@weo-edu/is'
+
 
 /**
  * Exports
  */
 
-export default function genMiddleware({dispatch}) {
-  return next => action =>
-    isGenerator(action) || isGeneratorFunction(action)
-      ? pit(dispatch, action)
+export default function genMiddleware(errorHandler=defaultErrorHandler, successHandler=identity) {
+  return ({dispatch}) => next => action =>
+    is.generator(action) || is.generatorFunction(action)
+      ? pit(dispatch, action).then(successHandler, errorHandler)
       : next(action)
 }
 
-function isGenerator(obj) {
-  return 'function' == typeof obj.next && 'function' == typeof obj.throw;
+function identity (v) {
+  return v
 }
 
-function isGeneratorFunction(obj) {
-  var constructor = obj.constructor;
-  if (!constructor) return false;
-  if ('GeneratorFunction' === constructor.name || 'GeneratorFunction' === constructor.displayName) return true;
-  return isGenerator(constructor.prototype);
+function defaultErrorHandler (err) {
+  assert(err instanceof Error, 'non-error thrown: ' + err)
+
+  var msg = err.stack || err.toString()
+  console.error()
+  console.error(msg.replace(/^/gm, '  '))
+  console.error()
+  throw err
 }
