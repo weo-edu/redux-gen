@@ -32,7 +32,7 @@ const store = createStoreWithMiddleware(rootReducer);
 //  {username: "tio", id: 2},
 //  {username: "shasta", id: 3}
 // ]
-store.dispatch(getUser())
+store.dispatch(getUsers())
 
 // Side Effects Middleware
 
@@ -54,7 +54,7 @@ function getUsers *() {
 
 ```
 
-Using yields, complex action sequnces are easy to test. They are composed of a series of pure functions that return simple objects. They can be tested by iterating over the returned generator. No side effects happen in the actions sequence.
+Using [yields](https://github.com/weo-edu/yields), complex action sequnces are easy to test. They are composed of a series of pure functions that return simple objects. They can be tested by iterating over the returned generator. No side effects happen in the action's sequence.
 
 ```js
 import yields from '@weo-edu/yield'
