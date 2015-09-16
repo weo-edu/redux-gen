@@ -1,7 +1,7 @@
 
 # redux-gen
 
-[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
+[![Codeship Status for weo-edu/redux-gen](https://img.shields.io/codeship/816e83f0-3e69-0133-9f44-5a0949beaeb8/master.svg)](https://codeship.com/projects/102760) [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
 
 Generator middleware for redux. Allows you to write action creators that return generators, enabling apps to push all side effects into a small set of effects middleware.
 
