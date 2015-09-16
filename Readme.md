@@ -3,11 +3,50 @@
 
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
 
-Generator middleware for redux.
+Generator middleware for redux. Allows you to write action creators that return generators, enabling apps to push all side effects into a small set of effects middleware.
 
 ## Installation
 
     $ npm install @weo-edu/redux-gen
+
+## Pushing side effects
+
+```js
+import { createStore, applyMiddleware } from 'redux'
+import gen from '@weo-edu/redux-gen'
+import rootReducer from './reducers/index'
+import fetch from 'isomorphic-fetch'
+
+// create a store that has redux-thunk middleware enabled
+const createStoreWithMiddleware = applyMiddleware(
+  gen()
+  fetch
+)(createStore);
+
+const store = createStoreWithMiddleware(rootReducer);
+
+store.dispatch(getUser())
+
+// Side Effects Middleware
+
+function fetch ({dispatch, getState}) {
+  return next => action =>
+    action.type === 'FETCH'
+      ? fetch(action.payload.url, action.payload.params).then(res => res.json())
+      : next(action)
+}
+
+
+// Actions
+
+function getUsers *() {
+  var userIds = yield {url: '/users', method: 'GET'}
+  return userIds.map(userId => {
+    return yield {url: '/user/' + userId, method: 'GET'}
+  })
+}
+
+```
 
 ## License
 
