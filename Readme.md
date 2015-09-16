@@ -9,7 +9,9 @@ Generator middleware for redux. Allows you to write action creators that return 
 
     $ npm install @weo-edu/redux-gen
 
-## Pushing side effects
+## Usage
+
+Push side effects to edges by putting all io in middleware.
 
 ```js
 import { createStore, applyMiddleware } from 'redux'
@@ -25,6 +27,11 @@ const createStoreWithMiddleware = applyMiddleware(
 
 const store = createStoreWithMiddleware(rootReducer);
 
+// returns [
+//  {username: "josh", id: 1},
+//  {username: "tio", id: 2},
+//  {username: "shasta", id: 3}
+// ]
 store.dispatch(getUser())
 
 // Side Effects Middleware
@@ -36,7 +43,6 @@ function fetch ({dispatch, getState}) {
       : next(action)
 }
 
-
 // Actions
 
 function getUsers *() {
@@ -46,6 +52,19 @@ function getUsers *() {
   })
 }
 
+```
+
+Using yields, complex action sequnces are easy to test. They are composed of a series of pure functions that return simple objects. They can be tested by iterating over the returned generator. No side effects happen in the actions sequence.
+
+```js
+import yields from '@weo-edu/yield'
+var getUsers = yields(function () {
+  return {url: '/users', method: 'GET'}
+}).yields(function (userIds) {
+  return userIds.map(userId => {
+    return {url: '/user/' + userId, method: 'GET'}
+  })
+})
 ```
 
 ## License
