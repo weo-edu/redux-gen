@@ -46,9 +46,9 @@ function fetch ({dispatch, getState}) {
 // Actions
 
 function getUsers *() {
-  var userIds = yield {url: '/users', method: 'GET'}
+  var userIds = yield {url: '/users', method: 'GET', type: 'FETCH'}
   return userIds.map(userId => {
-    return yield {url: '/user/' + userId, method: 'GET'}
+    return yield {url: '/user/' + userId, method: 'GET', type: 'FETCH'}
   })
 }
 
@@ -59,10 +59,10 @@ Using [yields](https://github.com/weo-edu/yields), complex action sequnces are e
 ```js
 import yields from '@weo-edu/yield'
 var getUsers = yields(function () {
-  return {url: '/users', method: 'GET'}
+  return {url: '/users', method: 'GET', type: 'FETCH'}
 }).yields(function (userIds) {
   return userIds.map(userId => {
-    return {url: '/user/' + userId, method: 'GET'}
+    return {url: '/user/' + userId, method: 'GET', type: 'FETCH'}
   })
 })
 ```
