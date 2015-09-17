@@ -54,7 +54,9 @@ function getUsers *() {
 
 ```
 
-Using [yields](https://github.com/weo-edu/yields), complex action sequnces are easy to test. They are composed of a series of pure functions that return simple objects. They can be tested by iterating over the returned generator. No side effects happen in the action's sequence.
+In order to avoid writing action creators as actual GeneratorFunction, we can use libraries like [yields](https://github.com/weo-edu/yields), which returns functions that return generators. Yields parallels the control flow that can be achieved with GeneratorFunctions, but enforces that the functions are pure. Since the action creators have no side effects they can easily be tested by iterating over the generator returned by an action.
+
+In the previous example, using this action would be equivalent.
 
 ```js
 import yields from '@weo-edu/yield'
