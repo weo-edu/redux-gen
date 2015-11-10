@@ -45,11 +45,9 @@ function fetch ({dispatch, getState}) {
 
 // Actions
 
-function getUsers *() {
-  var userIds = yield {url: '/users', method: 'GET', type: 'FETCH'}
-  return userIds.map(userId => {
-    return yield {url: '/user/' + userId, method: 'GET', type: 'FETCH'}
-  })
+function getUsers * () {
+  let userIds = yield {url: '/users', method: 'GET', type: 'FETCH'}
+  return userIds.map(userId => ({url: '/user/' + userId, method: 'GET', type: 'FETCH'}))
 }
 
 ```
@@ -59,14 +57,11 @@ In order to avoid writing action creators as actual GeneratorFunction, we can us
 In the previous example, using this action would be equivalent.
 
 ```js
-import yields from '@weo-edu/yield'
-var getUsers = yields(function () {
-  return {url: '/users', method: 'GET', type: 'FETCH'}
-}).yields(function (userIds) {
-  return userIds.map(userId => {
-    return {url: '/user/' + userId, method: 'GET', type: 'FETCH'}
-  })
-})
+import yields from 'yields'
+let getUsers = yields(() => ({url: '/users', method: 'GET', type: 'FETCH'}))
+  .yields(userIds =>
+    userIds.map(userId => ({url: '/user/' + userId, method: 'GET', type: 'FETCH'}))
+  )
 ```
 
 ## License
