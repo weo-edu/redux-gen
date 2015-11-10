@@ -3,7 +3,7 @@
  */
 
 import assert from 'assert'
-import pit from '@weo-edu/pit'
+import yio from 'yio'
 import is from '@weo-edu/is'
 
 
@@ -14,7 +14,7 @@ import is from '@weo-edu/is'
 export default function genMiddleware(errorHandler=defaultErrorHandler, successHandler=identity) {
   return ({dispatch}) => next => action =>
     is.generator(action) || is.generatorFunction(action)
-      ? pit(dispatch, action).then(successHandler, errorHandler)
+      ? yio(dispatch, action).then(successHandler, errorHandler)
       : next(action)
 }
 

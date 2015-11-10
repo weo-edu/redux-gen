@@ -7,7 +7,7 @@ Generator middleware for redux. Allows you to write action creators that return 
 
 ## Installation
 
-    $ npm install @weo-edu/redux-gen
+    $ npm install redux-gen
 
 ## Usage
 
@@ -15,7 +15,7 @@ Push side effects to edges by putting all io in middleware.
 
 ```js
 import { createStore, applyMiddleware } from 'redux'
-import gen from '@weo-edu/redux-gen'
+import gen from 'redux-gen'
 import rootReducer from './reducers/index'
 import fetch from 'isomorphic-fetch'
 

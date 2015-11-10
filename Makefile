@@ -14,10 +14,16 @@ node_modules: package.json
 	@touch node_modules
 
 test: node_modules
-	${BIN}/babel-tape-runner test/*.js
+	${BIN}/babel-node test/*.js
 
 validate: node_modules
 	@${BIN}/standard
+
+clean:
+	@rm -rf lib
+
+build: clean
+	@${BIN}/babel src --out-dir lib
 
 all: validate test
 
@@ -25,4 +31,4 @@ all: validate test
 # Phony
 #
 
-.PHONY: test validate
+.PHONY: test validate clean build
