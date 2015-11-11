@@ -47,7 +47,7 @@ function fetch ({dispatch, getState}) {
 
 function getUsers * () {
   let userIds = yield {url: '/users', method: 'GET', type: 'FETCH'}
-  return userIds.map(userId => ({url: '/user/' + userId, method: 'GET', type: 'FETCH'}))
+  return yield userIds.map(userId => ({url: '/user/' + userId, method: 'GET', type: 'FETCH'}))
 }
 
 ```
