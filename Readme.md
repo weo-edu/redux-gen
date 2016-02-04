@@ -19,13 +19,11 @@ import gen from 'redux-gen'
 import rootReducer from './reducers/index'
 import fetch from 'isomorphic-fetch'
 
-// create a store that has redux-thunk middleware enabled
-const createStoreWithMiddleware = applyMiddleware(
-  gen()
-  fetch
-)(createStore);
-
-const store = createStoreWithMiddleware(rootReducer);
+// Note: passing middleware as the last argument to createStore requires redux@>=3.1.0
+const store = createStore(
+  rootReducer,
+  applyMiddleware(gen(), fetch)
+);
 
 // returns [
 //  {username: "josh", id: 1},
